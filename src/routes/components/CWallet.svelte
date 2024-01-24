@@ -17,7 +17,7 @@
   
       // Mettez à jour les valeurs affichées
       lockedBalance = balance.toString() + ' ETH';
-      lockDuration = duration.toString() + ' jours'; // Vous pouvez ajuster l'unité de temps selon vos besoins
+      lockDuration = duration.toString() + ' Day'; // Vous pouvez ajuster l'unité de temps selon vos besoins
     });
   
     // Fonctions fictives pour obtenir le solde verrouillé et la durée de verrouillage
@@ -33,9 +33,8 @@
   </script>
   
   <div class="cwallet">
-    <h2>Portefeuille Verrouillé</h2>
-    <p>Solde Verrouillé : {lockedBalance}</p>
-    <p>Durée de Verrouillage : {lockDuration}</p>
+    <p>Locked : {lockedBalance}</p>
+    <p>Time : {lockDuration}</p>
     <!-- Ajoutez des boutons ou des formulaires pour les opérations de dépôt et de retrait ici -->
   </div>
   

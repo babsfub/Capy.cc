@@ -23,7 +23,7 @@
 
     const formatBalance = (balance: string): string => {
         const parsedBalance = parseFloat(balance);
-        return parsedBalance.toFixed(5); 
+        return parsedBalance.toFixed(3); 
     };
 
     const updateAccountBalance = async (): Promise<void> => {
