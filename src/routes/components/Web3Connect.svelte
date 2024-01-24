@@ -4,7 +4,7 @@
 
     let isConnected: boolean = false;
     let isCorrectBlockchain: boolean = false;
-    const targetBlockchainId: number = 168587773; // Assuming blockchain ID can be represented as a number
+    const targetBlockchainId: number = 168587773; 
     let accountBalance: string = '';
 
     $: isCorrectBlockchain = Number($chainId) === targetBlockchainId;
@@ -21,24 +21,33 @@
         }
     });
 
+    const formatBalance = (balance: string): string => {
+        const parsedBalance = parseFloat(balance);
+        return parsedBalance.toFixed(5); 
+    };
+
     const updateAccountBalance = async (): Promise<void> => {
         if ($web3.utils.isAddress($selectedAccount)) {
             const balance = await $web3.eth.getBalance($selectedAccount);
-            accountBalance = $web3.utils.fromWei(balance, 'ether') + ' ETH'; // Displayed in ETH
+            accountBalance = formatBalance($web3.utils.fromWei(balance, 'ether')) + ' ETH';
         }
     };
 </script>
 
+
 {#if !isCorrectBlockchain}
     <div class="alert">
-        <p> You are not connected to the correct blockchain.</p><p> Please change blockchain to use this application. </p>
+        <p> Please change to Blast Testnet</p>
+        <p> to use this application. </p>
     </div>
 {/if}
 
 <div class="wallet-connect">
     {#if isConnected}
-        <p>Account Balance: {accountBalance}</p>
+        <div>
+            <p>Balance:{accountBalance}</p>
+        </div>
     {:else}
-        <button on:click="{evm.setProvider}" class="button">Connect to Wallet</button>
+        <button on:click="{evm.setProvider}" class="button">Connect</button>
     {/if}
 </div>

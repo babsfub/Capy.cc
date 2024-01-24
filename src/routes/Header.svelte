@@ -28,7 +28,9 @@
           </ul>  
         </details>    
             </ul></li>
-            <li></li>
+            <ul>
+              <li><a href="Vault">Manage</a></li>
+            </ul>
     <li><Web3Connect /></li>
   </ul>
 </nav>

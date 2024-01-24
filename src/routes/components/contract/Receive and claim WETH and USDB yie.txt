@@ -1,0 +1,29 @@
+Receive and claim WETH and USDB yield
+Similar to ETH, WETH and USDB on Blast is also rebasing and follows the same yield mode configurations.
+
+However, unlike ETH where contracts have Disabled yield by default, WETH and USDB accounts have Automatic yield by default for both EOAs and smart contracts.
+
+Users can change the yield mode of their WETH and USDB accounts by calling the configure function on the relevant token address.
+
+
+enum YieldMode {
+    AUTOMATIC,
+    VOID,
+    CLAIMABLE
+}
+
+interface IWETHUSDBRebasing {
+    // changes the yield mode of the caller and update the balance
+    // to reflect the configuration
+    configure(YieldMode) external returns (uint256);
+}
+
+contract MyContract {
+		constructor(address gov) {
+              IWETHUSDBRebasing(0x42...22).configure(YieldMode.CLAIMABLE) //configure claimable yield for USDB
+			  IWETHUSDBRebasing(0x42...23).configure(YieldMode.CLAIMABLE) //configure claimable yield for WETH
+		}
+}
+The WETH and USDB addresses will be slightly different on the Blast mainnet.
+
+USDB is deployed, but not currently live on the Blast Sepolia testnet. USDB is expected to go live on the testnet around January 22.
