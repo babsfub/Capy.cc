@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     import { defaultEvmStores as evm, selectedAccount, chainId, web3 } from 'svelte-web3';
 
-    let isConnected = false;
-    let isCorrectBlockchain = false;
-    const targetBlockchainId = 168587773n; // Assurez-vous que c'est le bon ID de blockchain
-    let accountBalance = '';
+    let isConnected: boolean = false;
+    let isCorrectBlockchain: boolean = false;
+    const targetBlockchainId: number = 168587773; // Assuming blockchain ID can be represented as a number
+    let accountBalance: string = '';
 
-    $: isCorrectBlockchain = $chainId === targetBlockchainId;
+    $: isCorrectBlockchain = Number($chainId) === targetBlockchainId;
     $: if (isConnected && isCorrectBlockchain) {
         updateAccountBalance();
     }
@@ -21,23 +21,24 @@
         }
     });
 
-    const updateAccountBalance = async () => {
+    const updateAccountBalance = async (): Promise<void> => {
         if ($web3.utils.isAddress($selectedAccount)) {
             const balance = await $web3.eth.getBalance($selectedAccount);
-            accountBalance = $web3.utils.fromWei(balance).toString() + ' ETH'; // Changé pour afficher en ETH
+            accountBalance = $web3.utils.fromWei(balance, 'ether') + ' ETH'; // Displayed in ETH
         }
     };
 </script>
 
 {#if !isCorrectBlockchain}
     <div class="alert">
-       <p> You are not connected to the correct blockchain.</p><p> Please change blockchain to use this application. </p></div>
+        <p> You are not connected to the correct blockchain.</p><p> Please change blockchain to use this application. </p>
+    </div>
 {/if}
 
 <div class="wallet-connect">
     {#if isConnected}
         <p>Account Balance: {accountBalance}</p>
     {:else}
-        <button on:click="{evm.setProvider}" class="button-red margin-large padding-medium">Connect to Wallet</button>
+        <button on:click="{evm.setProvider}" class="button">Connect to Wallet</button>
     {/if}
 </div>

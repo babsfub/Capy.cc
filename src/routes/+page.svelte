@@ -2,7 +2,7 @@
 <script>
   import '@picocss/pico';
   import Header from './Header.svelte';
-  import Unclebara from '../static/unclesam.png';
+  import Unclebara from './static/unclesam.png';
 </script>
 <Header />
 
@@ -86,7 +86,7 @@
   <style>
 
 .main-background {
-  background-image: url('../static/unclesam.png'); 
+  background-image: url('./static/unclesam.png'); 
   
   background-position: center;
   background-repeat: no-repeat; 
